@@ -14,7 +14,6 @@ class toDo extends React.Component{
             statusFlag : false,
             editFlag: false,
             inputVal: '',
-            isEdited: false,
         }
     }
 
@@ -27,14 +26,14 @@ class toDo extends React.Component{
     editToDo() {
         this.setState({
             editFlag: !this.state.editFlag,
-            inputVal: '',
+            inputVal: this.props.title,
         })
     }
 
     clickForEdit() {
         if(this.state.inputVal) {
             this.editToDo();
-            this.props.sub(this.state.inputVal, this.props.id)
+            this.props.sub(this.state.inputVal, this.props.id);
         }
 
     }
@@ -46,11 +45,15 @@ class toDo extends React.Component{
 
     render() {
         return (
-            (this.state.editFlag && <EditInput value={this.state.inputVal} changeF={this.inpChange} clickF={this.clickForEdit} btnName ={'Update'} clasNam={'update-edit-inp'}/>)
-            || <div className='to-do-box'>
+            (this.state.editFlag
+                &&
+                <EditInput value={this.state.inputVal} changeF={this.inpChange} clickF={this.clickForEdit} btnName ={'Update'} clasNam={'update-edit-inp'}/>
+            ) || <div className='to-do-box'>
                     <div className='to-do-box-top'>
                         <p className='to-do-titel'>
-                            {this.props.titel}
+                            {this.props.title}
+                            {console.log(this.props.title)}
+                            {console.log(this.props)}
                         </p>
                         <img src={require('../Img/edit.png') } onClick={this.editToDo} alt=''/>
                     </div>
